@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Band Name Generator</title>
+</head>
+
+<body>
+  <h1>Band Name Generator</h1>
+  <h3>
+    Middlewares (in between raw request that comes into the server and before it get processed by routes handler (e.g. GET,POST,PUT..))</br>
+    Server -> Middlewares -> Routes(GET,POST,PUT..)</br>
+  </h3>
+  <p>
+    <h3>Advantages of middlewares:</h3>
+    <ol>
+      <li>Pre-processing the request e.g. body parser</li>
+      <li>Logging request e.g. morgan</li>
+      <li>Authentication</li>
+      <li>Identify error</li>
+    </ol>
+    
+    <h3>E.g. Body Parser - body parsing middleware //Frequently use in form data</h3>
+  </p>
+
+  <p>-----------------------------------------------------------------------------------------------------</p>
+  <form action="/submit" method="POST"> 
+    <label for="street">Street Name:</label>  
+    <input type="text" name="street" required> 
+    <label for="pet">Pet Name:</label>
+    <input type="text" name="pet" required></br>
+    <input type="submit" value="Submit">
+  </form>
+
+ 
+
+</body>
+
+
+</html>
