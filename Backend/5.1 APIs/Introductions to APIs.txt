@@ -1,0 +1,21 @@
+API (Application Programming Interface)
+It acts as a bridge to help Program A to communicate with Program B. 
+Program A (Chinese) <--> API <--> Program B (Japanese)
+
+REST APIs : Use HTTP Protocol to interact with the APIs
+
+Formatting API Requests: 
+1. API Endpoints: BaseURL/Endpoint
+https://bored-api.appbrewery.com/endpoint
+E.g. https://bored-api.appbrewery.com/random
+
+2. Query parameters: Adding query at the end of the request
+https://bored-api.appbrewery.com/endpoint?query=value
+
+Multiple Query Parameters: Adding '&'
+https://bored-api.appbrewery.com/endpoint?query2=value&query=value
+E.g. https://bored-api.appbrewery.com/filter?type=social&participants=2
+
+3. Path parameters: Find/Identify a specific resource
+https://bored-api.appbrewery.com/endpoint/{path-parameter}
+E.g. https://bored-api.appbrewery.com/activity/5914292

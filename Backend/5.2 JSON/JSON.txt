@@ -1,0 +1,5 @@
+JSON (JavaScript Object Notation)
+A way to format data that can be sent over the internet in a readable and efficient manner.
+
+a. To turn JS Object -> JSON: JSON.stringify(JS Object);
+b. JSON -> JS Object: JSON.parse(jsonData); 
