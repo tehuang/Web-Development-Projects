@@ -1,0 +1,20 @@
+API Authentication: Sometimes, we want to protect our resources and only allow certain people to access them.
+
+=============================
+4 Levels of Authentication: 
+=============================
+0. No Authentication (Public API, anyone can use it) 
+   - Setup rate limit. E.g. 100 requests/30min
+   
+1. Basic Authentication (Require username/password)
+   - Require to setup 
+   - Convert id/password to Base64 format and pass it to the header as a string
+   - 
+2. API Key Authorization
+   - Instead of using an ID/password, which can be intercepted by hackers on the internet, an API key is utilized.
+   - An API key is a reusable code that can be regenerated and deleted.
+   - It can have rated limit
+
+3. Token Base Authentication
+   - Use token to interact with API after logging with ID/password
+

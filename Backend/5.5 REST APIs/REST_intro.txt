@@ -1,0 +1,5 @@
+axios.get("URL", config); //config: header, params, auth
+axios.post("URL", body, config); //body: data you want to send out
+axios.put("URL", body, config); 
+axios.patch("URL", body, config); 
+axios.delete("URL", config); 
