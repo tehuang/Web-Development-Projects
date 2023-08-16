@@ -1,0 +1,82 @@
+Bootstrap (CSS Frameworks)
+- 12 Column Layout system
+- Mobile First Responsive websites
+Reference: https://getbootstrap.com/
+
+===============
+General Layout
+===============
+<div class = "containter">
+  <div class = "row">
+    <div class = "col" > Hello </div>
+  </div>
+</div>
+
+===================
+Bootstrap Container
+===================
+.container (often used) 
+.container-sm
+.container-md
+.container-lg
+.container-xl
+.container-xxl
+.container-fluid (often used)
+
+==============
+Sized Columns
+==============
+Think of each row has 12 columns. 
+col-2 (1/6 width)
+col-4 
+col-6 (50% width)
+
+=====================
+Bootstrap Breakpoints
+=====================
+Extra small : foldable-phone
+Small : mobile
+Medium : iPad
+Large : laptop
+Extra large : desktop
+Extra extra large : TV
+
+E.g. 
+|col-sm-2|col-sm-4|col-sm-6| => Screen sizes greater than or equal to 'small' will display in a 2:4:6 aspect ratio.
+| col-sm | col-sm | col-sm | => For screens smaller than 'sm', they will be divided into 3 equal parts.
+
+====================
+Multiple Breakpoints
+====================
+col-sm-12 col-md-8 col-lg-4
+
+=======
+Spacing
+=======
+{property}-{sides}-{size}
+
+property:
+m - margin
+p - padding
+
+sides:
+t - top  //mt = margin-top
+b - bottom //mb = margin-bottom
+x - left and right
+y - top and bottom
+
+size: 
+0 - eliminate the margin/padding to 0
+1 
+2
+3
+4
+5 - set the margin/padding to the largest size
+
+E.g. 
+mb-2 : margin bottom size 2
+
+=========
+Dark Mode
+=========
+data-bs-theme="dark"
