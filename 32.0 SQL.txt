@@ -1,0 +1,85 @@
+====================================
+CRUD (CREATE, READ, UPDATE, DESTROY)
+====================================
+
+============
+Create Table
+============
+CREATE TABLE products(
+    id INT Not Null,
+    name STRING,
+    price MONEY,
+    PRIMARY KEY (id)   //Primary keys must contain UNIQUE values, and cannot contain NULL values.A table can have only ONE primary key
+)
+
+------
+Insert
+------
+//If you are adding values for all the columns of the table, you do not need to specify the column names 
+//Ref: https://www.w3schools.com/sql/sql_insert.asp
+INSERT INTO products
+VALUES(1,"Pen", 1.20)
+
+//Or, specify both the column names and the values to be inserted
+INSERT INTO products(id,name)
+VALUES(2,"Pencil")
+
+----
+Read
+----
+//Select everything from 'products' table
+SELECT * FROM products 
+
+//Select only a few columns from the table
+SELECT name, price FROM 'products';
+
+//Select only one particular row
+//Ref: https://www.w3schools.com/sql/sql_where.asp
+SELECT column1, column2,...
+FROM table_name
+WHERE condition
+
+------
+Update
+------
+UPDATE table_name
+SET column1 = value1, column2 = value2, ...
+WHERE condition;
+
+//Update by adding a new column
+ALTER TABLE table_name  //add, delete, or modify columns in an existing table
+ADD column_name datatype;
+
+-------
+Destroy
+-------
+DELETE FROM table_name 
+WHERE condition;    //If you omit the WHERE clause, all records in the table will be deleted!
+
+-----------
+Foreign key
+-----------
+A FOREIGN KEY is a key used to link two tables together.
+
+CREATE TABLE Orders (
+    OrderID int NOT NULL,
+    OrderNumber int NOT NULL,
+    PersonID int,
+    PRIMARY KEY (OrderID),
+    FOREIGN KEY (PersonID) REFERENCES Persons(PersonID)
+);
+
+----
+Join
+----
+Combine rows from two or more tables, based on a related column between them.
+
+INNER JOIN: selects records that have matching values in both tables (交集)
+Ref: https://www.w3schools.com/sql/sql_join_inner.asp
+
+SELECT column_name(s)
+FROM table1
+INNER JOIN table2
+ON table1.column_name = table2.column_name;
+
+

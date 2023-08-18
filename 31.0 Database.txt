@@ -1,0 +1,47 @@
+===============================
+SQL (Structured Query Language)
+===============================
+- MySQL, PostgreSQL
+- Group data into table
+- Relational: group related pieces of data into an individual table
+- May be unstable and costly when there is more data to build up
+
+  first name | last name | email address
+  ---------------------------------------
+   Yu Hsuan  |   Huang   | tehuang@xx.com
+    Winnie   |   Pooh    | pooh@disney.com
+
+
+==========================================
+NoSQL (Not only Structured Query Language)
+==========================================
+- MongoDB, redis
+- Data represent in JSON format, and doesn't have to be in same shape. More flexible
+- Non-Relational
+- Suitable in one to many
+- Allows the use of a distributed system and allows for horizontal scaling.
+
+  {
+   first_name: "Yu Hsuan",
+   last_name: "Huang",
+   email: "tehuang@xx.com"
+  }
+  {
+   first_name: "Winnie",
+   last_name: "Pooh",
+   email: "pooh@disney.com"
+   address: "Orlando"
+  }
+
+
+===============================================================
+            SQL         v.s.      noSQL
+===============================================================
+More mature              | Shiny and New
+Table Structure          | Document Structure
+Requires a Schema        | More Flexible to Changes
+Great with Relationships | Not Great with Complex relationships
+Scales vertically        | Horizontally scalable
+ 
+
+Difference between SQL and noSQL: Structure, Relationship, Scalability
