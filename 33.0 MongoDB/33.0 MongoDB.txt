@@ -1,0 +1,111 @@
+================
+Before we start:
+================ 
+1. Open a new terminal
+> mongod  //spin up mongo's server; 
+          //Ready to go when we see: "Waiting for connections on port:27017"
+
+2. Open another terminal
+> mongosh //to use the mongo shell to interact with the db
+
+=======
+General
+=======
+> show dbs //show database names
+> use dbName //create database
+  e.g. use shopDB
+> db //Tells which db are you currently in
+
+-----------------
+Create Operations
+-----------------
+> db.collection.insertOne()
+  //collection == table
+  //If the collection does not currently exist, insert operations will create the collection. 
+
+ db.products.insertOne(
+   {
+     _id: 1,
+     name: "Pen",  
+     price: 1.20
+   }
+ )
+
+> show collections
+> db.collection.insertMany() //Insert several documents
+
+---------------
+Read Operations
+---------------
+> db.collection.find() //Read documents from a collection
+  e.g. db.products.find()
+> db.collection.find(query,projection) //projection = the field we want to return
+  e.g. db.products.find({name:"Pencil"}) 
+  e.g. db.products.find({price:{$gt:1}}) //Specify a range
+
+*****************************
+* Query operators:          *
+* $gt = greater than        *
+* $lt = less than           *
+* $lte = less than or equal *
+* $and                      *
+*****************************
+
+  e.g. db.products.find({_id:1},{name:1}) // the value 1 in 'name' = true; if 0, then equals to false
+      ==> Only returns the name field in the result 
+
+-----------------
+Update Operations
+-----------------
+> db.collection.updateOne()
+  e.g. db.products.updateOne({_id:1},{$set:{stock:32}})
+
+-----------------
+Delete Operations
+-----------------
+> db.collection.deleteOne() 
+  e.g. db.products.deleteOne({_id:2})
+
+---------------------------------
+Set up Relationships: One to Many
+---------------------------------
+> db.products.insert(
+    {
+     _id: 3, 
+     name: "Rubber",
+     price: 1.20,
+     stock: 42,
+     reviews: [
+       {
+         authorName: "Teresa",
+         rating:5,
+         review: "Best pencil ever!"
+       },
+       {
+      	 authorName: "Emily",
+         rating:2,
+         review: "Wow!"
+       }
+     ]
+    }
+  )
+
+====================
+MongoDB with Node.js (To build up application that has databases)
+====================
+2 Options: 
+1. MongoDB native driver
+2. ODB(object documented mapper): Mongoose //Easier way to code
+
+
+
+
+
+
+
+
+
+
+
+
+
