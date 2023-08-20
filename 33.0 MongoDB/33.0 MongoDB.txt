@@ -66,6 +66,10 @@ Delete Operations
 > db.collection.deleteOne() 
   e.g. db.products.deleteOne({_id:2})
 
+<-- Delete the database --> 
+> use fruitsDB //Switch to the database that you want to delete
+> db.dropDatabase()
+
 ---------------------------------
 Set up Relationships: One to Many
 ---------------------------------

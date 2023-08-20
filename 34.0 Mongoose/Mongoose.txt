@@ -1,0 +1,19 @@
+=================================
+Mongoose (Object document mapper)
+=================================
+- Allows a Node.js app that utilizes JavaScript objects to communicate with a MongoDB database.
+- Helps make the codes shorter and easier to use
+
+
+-------
+General
+-------
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb://127.0.0.1:27017/test'); //Specify the name of the database that we want to connect or create
+
+const Cat = mongoose.model('Cat', { name: String });
+
+const kitty = new Cat({ name: 'Zildjian' });
+kitty.save().then(() => console.log('meow'));
+
