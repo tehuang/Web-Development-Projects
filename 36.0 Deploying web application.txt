@@ -1,0 +1,34 @@
+=================================
+Atlas (MongoDB own cloud service)
+=================================
+- Helps to host our database
+
+----------------------------------------------------------
+Original: The websites and the database are hosted locally
+----------------------------------------------------------
+
+      Own computer
+(http://localhost:3000/)
+(mongodb://127.0.0.1:27017/)
+
+----------------------------------------------------------------------------------------
+Now: Move the website to a server and an online database in order to provide 24/7 access
+----------------------------------------------------------------------------------------
+
+Own computer        <----->        Heroku (server)        <----->        MongoDB Atlas
+                           (https://yourapp.herokuapp.com)       (mongodb://cluster0.mongodb.net:27017)
+
+
+============================
+Move DB from local to online
+============================
+1. Install dotenv
+   > npm i dotenv
+
+2. Create .env file and save mongodb+srv://teresayhhuang:<Password>@cluster0.w7txh2q.mongodb.net/todolistDB
+
+3. import 'dotenv/config';
+   const MONGO_URI = `${process.env.MONGO_URI}`;
+   mongoose.connect(MONGO_URI);
+
+

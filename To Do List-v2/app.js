@@ -2,6 +2,8 @@ import express from "express";
 import bodyParser from "body-parser";
 import mongoose from 'mongoose';
 import _ from "lodash";
+import 'dotenv/config'; //help to access hidden keys in the .env file
+
 
 const app = express();
 const port = 3000;
@@ -10,7 +12,12 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 
-mongoose.connect('mongodb://127.0.0.1:27017/todolistDB');
+//local db 
+//mongoose.connect('mongodb://127.0.0.1:27017/todolistDB');
+
+//Atlas MongoDB
+const MONGO_URI = `${process.env.MONGO_URI}`;
+mongoose.connect(MONGO_URI);
 
 const itemsSchema = new mongoose.Schema({
     name:String
