@@ -31,4 +31,30 @@ Move DB from local to online
    const MONGO_URI = `${process.env.MONGO_URI}`;
    mongoose.connect(MONGO_URI);
 
-
+==================
+Move app to Heroku
+==================
+Refer: https://devcenter.heroku.com/articles/preparing-a-codebase-for-heroku-deployment
+1. > heroku create 
+2. Specify the node version in package.json
+   "engines": {
+    "node": "18.16.0"
+  },
+3. Specify a start srcipt in package.json
+   "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+   },  
+4. Create 'Procfile' (process file) in the root directory
+   > web: node app.js
+5. Setup the correct port
+   let port = process.env.PORT;
+   if (port == null || port == "") {
+       port = 8000;
+   }
+6. Config Vars in Heroku page. Set up {key, value}
+   {MONGO_URI, mongodb+srv://teresayhhuang:password.....}
+6. git add .
+   git commit -m "first commit"
+7. git push heroku main
+8. heroku open

@@ -4,9 +4,7 @@ import mongoose from 'mongoose';
 import _ from "lodash";
 import 'dotenv/config'; //help to access hidden keys in the .env file
 
-
 const app = express();
-const port = 3000;
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended:true}));
@@ -16,8 +14,8 @@ app.use(express.static("public"));
 //mongoose.connect('mongodb://127.0.0.1:27017/todolistDB');
 
 //Atlas MongoDB
-const MONGO_URI = `${process.env.MONGO_URI}`;
-mongoose.connect(MONGO_URI);
+const MONGO_URI = process.env.MONGO_URI;
+mongoose.connect(process.env.MONGO_URI ||'mongodb://127.0.0.1:27017/todolistDB'); //If online db is not accessible, then connect to local db
 
 const itemsSchema = new mongoose.Schema({
     name:String
@@ -38,8 +36,6 @@ const item3 = new Item({
 });
 
 const defaultItems=[item1,item2,item3];
-
-// const workItems =["Practice Leetcode","Learn Web Development","Prepare CompTIA"];
 
 const listSchema = new mongoose.Schema({
     name:String,
@@ -135,13 +131,15 @@ app.get("/:customListName",function(req,res){
             console.log(err);
         });
     }
-    
 
 });
 
-// app.get("/about",function(req,res){
-//     res.render("about.ejs");
-// });
+
+// Web server will be assigned a dynamic port by Heroku
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 3000;
+}
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
