@@ -1,6 +1,9 @@
+import 'dotenv/config';
 import express from "express";
 import bodyParser from "body-parser";
 import mongoose  from "mongoose";
+import encrypt from "mongoose-encryption";
+
 
 const app = express();
 const port = 3000;
@@ -18,6 +21,14 @@ const userSchema = new mongoose.Schema({
     email: String,
     password: String
 });
+
+//Pass in a single secret string instead of two keys
+/*
+var secret = process.env.SOME_LONG_UNGUESSABLE_STRING;
+userSchema.plugin(encrypt, { secret: secret });
+*/
+
+userSchema.plugin(encrypt,{secret:process.env.SECRET,encryptedFields: ["password"]}); //Encrypt only 'password' field
 
 const User = new mongoose.model("User",userSchema);
 
