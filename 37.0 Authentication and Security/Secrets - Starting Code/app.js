@@ -2,7 +2,7 @@ import 'dotenv/config';
 import express from "express";
 import bodyParser from "body-parser";
 import mongoose  from "mongoose";
-import encrypt from "mongoose-encryption";
+import md5 from 'md5';
 
 
 const app = express();
@@ -22,13 +22,6 @@ const userSchema = new mongoose.Schema({
     password: String
 });
 
-//Pass in a single secret string instead of two keys
-/*
-var secret = process.env.SOME_LONG_UNGUESSABLE_STRING;
-userSchema.plugin(encrypt, { secret: secret });
-*/
-
-userSchema.plugin(encrypt,{secret:process.env.SECRET,encryptedFields: ["password"]}); //Encrypt only 'password' field
 
 const User = new mongoose.model("User",userSchema);
 
@@ -50,7 +43,7 @@ app.get("/register", (req, res) => {
 app.post("/register", (req, res) => {
     const newUser = new User({
         email:req.body.username,
-        password: req.body.password
+        password: md5(req.body.password) //Use md5 to hash the password
     });
     newUser.save().then(function(){
         res.render("secrets.ejs");  //We render the secret page unless the user has registered their account
@@ -60,7 +53,7 @@ app.post("/register", (req, res) => {
 });
 app.post("/login", (req, res) => {
     const username = req.body.username;
-    const password = req.body.password;
+    const password = md5(req.body.password);
     
     User.findOne({email:username}).then(function(foundUser){
         if(foundUser.password===password){
