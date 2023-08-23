@@ -101,4 +101,52 @@ E.g. {
     "__v" : NumberInt(0)
 }
 
+=============================
+Level 5: Cookies and Sessions
+=============================
+         ----Get---->              [visit Amazon website]
+        <--Response---
+Browser                Server
+        -----Post---->             [Add an item to shopping cart]
+        <--Response---             [Created a cookie that contains data about the item, and save it in the browser]
 
+****************
+In the future...
+****************
+         ----Get---->              [When visit the Amazon website, a cookie is sent to the server to help identify your identity and check for any previous session information]
+Browser                Server
+        <--Response---             [The server responds by sending back HTML/CSS/JavaScript, along with any previously saved items in the shopping cart]
+
+
+There are various types of cookies, but this course will primarily focus on the cookies used to establish and maintain sessions. 
+
+
+Session is a time period during which the browser interacts with the server. 
+- Session starts: when a user logs in to the website. A cookie is created that contains information indicating the user is logged in and has been successfully authenticated. This eliminates the need to provide credentials again when accessing pages that require authentication. 
+- Session ends: when the user logs out, and the associated cookie is destroyed.
+
+To implement this, we can use 'Passport", an authentication middleware for Node.js
+--------
+Passport
+--------
+> npm install passport
+> npm install passport-local     //Authenticate users for a website
+> npm install passport-local-mongoose  //Add a username, hash and salt field to store the username, the hashed password and the salt value.
+> npm install express-session
+
+Ref: https://www.passportjs.org/
+
+-----------------------------------------------------------------------
+*Only necessary when using session. 
+Serialize: creating a cookie and embedding the user's identification within it.
+Deserialize: allows Passport to decrypt the cookie and extract the information contained inside
+------------------------------------------------------------------------
+
+
+E.g. {
+    "_id" : ObjectId("64e57113e93116d3e54b8cd1"),
+    "username" : "user@passportlocalmongoose.com",
+    "salt" : "16c4f471a062f4584517e0c377dd45f66209792fd7b9625f76d3f64054842d59",
+    "hash" : "cae1653ae13185f646d24d591a41736fa718ec537dc732c293cfe8297865af52c07914494c130609741215547ae96d4929d2bd6eb965869162bed932b55745feadb0854ceb404a073bfe18f27c1005d10a5c7793b2fc8e4ad33be1c4cdb7358a40262a5ace900a04de6f8cf6c76f9db4e8afa0692c7d848d8329e1db8adddd2d148ee7314e42e2bf9360ba32394266a37b6352df1f93412ba82a38c3ba03600ca49141337cf6372391d2e6ba0ac47951af1969faf8e9dccb6c2204f274cef96477d7d20e6b5fe6f05e1268552f9c54d45a005831d3560715088bb4efc98f7a7a5c0cffc614955bd86ea8d79fddddd0098dbde0e07d34c865508edde425ad15c2a2d1581ba844d3e524fab8303938e50779626727440b815a86929a58b62ccad6f08356f21af2b59dc0e24c346846d46df971da6353bd9100fbaea07bce09d4a995250f3141d991aa6a3c9af96d6aff27553c9e3fb2a290450b550b052a754c1c737f00597620938cb980292449faa9ced624a7b668d160b440535dd01100fb8a0dc2d487ab39a1cfef86b81327e9809a5a1543c8eebcb6b73cf562dac258cb339ddb3ffc6beea002b27455b89ec56b3ce1c9b9fcd933b6dd86bbdc57135b8748b6188754ec1ae361dc266da3384cc50346e67837b69fe5842754d23bec88255cc94c182dbe9d0c59097e83504a3efed9c80d5850713ae6761ace934ff3727ec4",
+    "__v" : NumberInt(0)
+}
