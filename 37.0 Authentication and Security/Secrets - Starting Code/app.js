@@ -2,7 +2,8 @@ import 'dotenv/config';
 import express from "express";
 import bodyParser from "body-parser";
 import mongoose  from "mongoose";
-import md5 from 'md5';
+import bcrypt from "bcrypt";
+const saltRounds = 10;
 
 
 const app = express();
@@ -41,24 +42,32 @@ app.get("/register", (req, res) => {
 
 //Where user register their account
 app.post("/register", (req, res) => {
-    const newUser = new User({
-        email:req.body.username,
-        password: md5(req.body.password) //Use md5 to hash the password
+
+    bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
+        // Store hash in your password DB.
+        const newUser = new User({
+            email:req.body.username,
+            password: hash
+        });
+        newUser.save().then(function(){
+            res.render("secrets.ejs");  //We render the secret page unless the user has registered their account
+        }).catch(function(err){
+            console.log(err);
+        });
     });
-    newUser.save().then(function(){
-        res.render("secrets.ejs");  //We render the secret page unless the user has registered their account
-    }).catch(function(err){
-        console.log(err);
-    });
+
+    
 });
 app.post("/login", (req, res) => {
     const username = req.body.username;
-    const password = md5(req.body.password);
-    
+    const password = req.body.password;
+    //To check the password
     User.findOne({email:username}).then(function(foundUser){
-        if(foundUser.password===password){
-            res.render("secrets.ejs");
-        }
+        bcrypt.compare(password, foundUser.password, function(err, result) {
+            if(result){
+                res.render("secrets.ejs");
+            }
+        });
     }).catch(function(err){
         console.log(err);
     }); 

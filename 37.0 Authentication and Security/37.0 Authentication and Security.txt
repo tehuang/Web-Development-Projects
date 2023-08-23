@@ -72,4 +72,33 @@ Conclusion: Hashing passwords is superior to using a secret key as it eliminates
 But, the same password processed through the same hashing function will always result in the same hash value. (Same password ==> Same Hash)
 Hackers can create a hash table for common passwords and then compare the generated hash values in an attempt to guess the password. (e.g. dictionary attack) 
 
+============================
+Level 4: Hashing and Salting
+============================
+- By adding a salt into the password, the resulting hash value will differ even when the user sets the same password.
+---------------------------------------------------------------
+Password + Salt (Random Characters) ---(Hash Function) --> Hash
+---------------------------------------------------------------
+- bcrypt: industry-standard hashing algorithm that developers use to enhance password security. Better than MD5. 
+- Salt Round: the number of times hashing is performed with the addition of salt.
+--------------------------------------------------------------------------------
+Password + Salt ---(Hash Function) --> Hash1 + Salt ---(Hash Function) --> Hash2    (salt round=2)
+--------------------------------------------------------------------------------
+To hash a password: 
+bcrypt.hash(myPlaintextPassword, saltRounds, function(err, hash) {
+    // Store hash in your password DB.
+});
+
+To check a password: 
+bcrypt.compare(myPlaintextPassword, hash, function(err, result) {
+    // result == true
+});
+
+E.g. {
+    "_id" : ObjectId("64e557d1bdbe69dc19f5577f"),
+    "email" : "user@bcrypthash.com",
+    "password" : "$2b$10$eNGRA2knt7pAmL0OI2b94OZw4i09AsNfZVwbJB3.PHBBlALwSR1ne",
+    "__v" : NumberInt(0)
+}
+
 
