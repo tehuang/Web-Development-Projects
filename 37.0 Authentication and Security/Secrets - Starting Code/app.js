@@ -5,6 +5,8 @@ import mongoose  from "mongoose";
 import session from 'express-session';
 import passport from 'passport';
 import passportLocalMongoose from 'passport-local-mongoose';
+import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
+import findOrCreate from "mongoose-findorcreate";
 
 const app = express();
 const port = 3000;
@@ -34,11 +36,13 @@ mongoose.connect('mongodb://127.0.0.1:27017/userDB');
 //Define user schema
 const userSchema = new mongoose.Schema({
     email: String,
-    password: String
+    password: String,
+    googleId: String,
+    secret:String
 });
 
-
 userSchema.plugin(passportLocalMongoose); //Add a username, hash and salt field to store the username, the hashed password and the salt value.
+userSchema.plugin(findOrCreate);
 
 const User = new mongoose.model("User",userSchema);
 
@@ -46,14 +50,46 @@ const User = new mongoose.model("User",userSchema);
 passport-local-mongoose adds a helper method createStrategy as static method to your schema. The createStrategy is responsible to setup passport-local LocalStrategy with the correct options.
 */
 passport.use(User.createStrategy()); //local strategy
-passport.serializeUser(User.serializeUser()); //passport-local-mongoose simplifies the code required for serialization and deserialization as mentioned in the Passport documentation.
-passport.deserializeUser(User.deserializeUser());
 
+passport.serializeUser(function(user, cb) {
+    process.nextTick(function() {
+      cb(null, { id: user.id, username: user.username, name: user.name });
+    });
+  });
+  
+passport.deserializeUser(function(user, cb) {
+process.nextTick(function() {
+    return cb(null, user);
+});
+});
+
+passport.use(new GoogleStrategy({
+    clientID: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
+    callbackURL: "http://localhost:3000/auth/google/secrets"
+  },
+  function(accessToken, refreshToken, profile, cb) { //This is where the Google sends back the access token
+    //console.log(profile);
+    User.findOrCreate({ googleId: profile.id }, function (err, user) { //Initially, 'findOrCreate' was just pseudo code. We use 'mongoose-findorcreate' to directly implement its functionality.
+      return cb(err, user);
+    });
+  }
+));
 
 app.get("/", (req, res) => {
     res.render("home.ejs");    
 });
 
+app.get("/auth/google",
+  passport.authenticate('google', { scope: ["profile"] }
+));
+
+app.get("/auth/google/secrets", 
+    passport.authenticate('google', { failureRedirect: "/login" }),
+        function(req, res) {
+        // Successful authentication, redirect to secrets.
+        res.redirect("/secrets");
+});
 
 app.get("/login", (req, res) => {
     res.render("login.ejs");    
@@ -65,11 +101,35 @@ app.get("/register", (req, res) => {
 });
 
 app.get("/secrets",(req,res)=>{ 
-    if(req.isAuthenticated()){  //This is where we rely on passport, session, passport-local-mongoose to make sure if user is already logged in
-        res.render("secrets.ejs");
+    User.find({"secret":{$ne:null}}).then(function(foundUsers){ //$ne:null = not equals to null
+        if(foundUsers){
+            res.render("secrets.ejs",{userWithSecrets:foundUsers});
+        }
+    }).catch(function(err){
+        console.log(err);
+    });
+});
+
+app.get("/submit",(req,res)=>{ 
+    if(req.isAuthenticated()){  
+        res.render("submit.ejs");
     }else{
         res.redirect("/login");
     }
+});
+
+app.post("/submit", (req, res) => {
+    const submittedSecret = req.body.secret;
+    User.findById(req.user.id).then(function(foundUser){
+        if(foundUser){
+            foundUser.secret=submittedSecret;
+            foundUser.save().then(function(){
+                res.redirect("/secrets");
+            });
+        }
+    }).catch(function(err){
+        console.log(err);
+    });
 });
 
 app.get("/logout",(req,res)=>{

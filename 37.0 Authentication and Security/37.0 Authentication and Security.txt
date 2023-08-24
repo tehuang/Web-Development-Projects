@@ -150,3 +150,64 @@ E.g. {
     "hash" : "cae1653ae13185f646d24d591a41736fa718ec537dc732c293cfe8297865af52c07914494c130609741215547ae96d4929d2bd6eb965869162bed932b55745feadb0854ceb404a073bfe18f27c1005d10a5c7793b2fc8e4ad33be1c4cdb7358a40262a5ace900a04de6f8cf6c76f9db4e8afa0692c7d848d8329e1db8adddd2d148ee7314e42e2bf9360ba32394266a37b6352df1f93412ba82a38c3ba03600ca49141337cf6372391d2e6ba0ac47951af1969faf8e9dccb6c2204f274cef96477d7d20e6b5fe6f05e1268552f9c54d45a005831d3560715088bb4efc98f7a7a5c0cffc614955bd86ea8d79fddddd0098dbde0e07d34c865508edde425ad15c2a2d1581ba844d3e524fab8303938e50779626727440b815a86929a58b62ccad6f08356f21af2b59dc0e24c346846d46df971da6353bd9100fbaea07bce09d4a995250f3141d991aa6a3c9af96d6aff27553c9e3fb2a290450b550b052a754c1c737f00597620938cb980292449faa9ced624a7b668d160b440535dd01100fb8a0dc2d487ab39a1cfef86b81327e9809a5a1543c8eebcb6b73cf562dac258cb339ddb3ffc6beea002b27455b89ec56b3ce1c9b9fcd933b6dd86bbdc57135b8748b6188754ec1ae361dc266da3384cc50346e67837b69fe5842754d23bec88255cc94c182dbe9d0c59097e83504a3efed9c80d5850713ae6761ace934ff3727ec4",
     "__v" : NumberInt(0)
 }
+
+===========================
+Level 6: 3rd Party OAuth2.0
+===========================
+OAuth = Open Authorization
+- Delegating security tasks to larger companies like Facebook or Google
+1. Granular access levels
+   e.g. When a user logs into Facebook, you can request specific items from their Facebook account
+2. Read/Read+Write Access
+3. Revoke access
+   e.g. Users have the ability to deauthorize access, allowing them to revoke permissions granted to an application, such as from Facebook
+
+[How to Implement]
+Step1: Setup your app in the developler console
+Step2: Redirect to authenticate
+Step3: User logs in on the website they trust (e.g. Google)
+Step4: User grants permissions (e.g. profile or email address) 
+Step5: Receive authorization code. This allows us to check if user has successfully signed on to facebook. 
+------------------------------------------
+Facebook --(Auth Code)--> Our designed App
+------------------------------------------
+Step6: Exchange Authcode for access token. The access token will be stored in our database and can be used when requesting specific pieces of information. 
+
+        <----(Auth Code)----
+Facebook                    Our designed App
+        ---(Access Token)-->
+
+**Access token can last longer than the auth code **
+Auth code = one time ticket ; Access token = year pass ticket
+
+-------------------
+Sign in with Google
+-------------------
+Ref: http://www.passportjs.org/packages/passport-google-oauth20/
+> npm install passport-google-oauth20
+
+- Created new project in the Google Developers Console and retrieve client ID and secret
+
+
+Once authentication, Mongoose generates an object ID. Apart from this, no other info is saved in the database. 
+That is, next time when the same user sign in, we won't be able to find them in our database. 
+E.g. {
+    "_id" : ObjectId("64e697bb6fd6a203c5e72065"),
+    "__v" : NumberInt(0)
+}
+---------------------------------------------
+To solve this, we need to redefine our schema by including the 'googleID' field. 
+
+const userSchema = new mongoose.Schema({
+    email: String,
+    password: String,
+    googleId: String
+});
+
+E.g. {
+    "_id" : ObjectId("64e699fd1705b3509f062b37"),
+    "googleId" : "107278738117161282736",
+    "__v" : NumberInt(0)
+}
+
+Conclusion: Eventually, we only have the user's Google ID, and there's no need to worry about saving their password.
