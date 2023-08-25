@@ -1,0 +1,108 @@
+==============================
+React.js (Frontend Framework)
+==============================
+- A JavaScript library for building user interfaces
+- Restructure a complex interface into a component tree, with each component represented as if they were an HTML element.
+E.g. 
+ <body>
+ <MyHeader />
+ <MyFooter />
+ </body>
+
+- Each component has its own styling and functionalities.
+  ------------  ------------  ------------
+  |HTML      |  |HTML      |  |HTML      |
+  |CSS       |  |CSS       |  |CSS       |
+  |JavaScript|  |JavaScript|  |JavaScript|
+  ------------  ------------  ------------
+   Component1    Component2    Component3
+
+- Able to compare the changes very efficiently (Diffing), allowing for re-rendering only the component that has changed.
+
+======================
+Intro to JSX and Babel
+======================
+- In index.html: 
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>JSX</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script src="../src/index.js" type="text/javascript"></script>
+  </body>
+</html>
+
+- In index.js: 
+import React from "react";
+import ReactDOM from "react-dom";
+
+ReactDOM.render(What To Show, Where to show it); 
+e.g. ReactDOM.render(<h1>Hello World!</h1>, document.getElementById("root"));
+
+----------------------------
+Babel: a JavaScript compiler
+----------------------------
+React components are written in JSX, which is not supported by older browsers. 
+Babel allows developers to use JSX syntax and compiles it into JavaScript that older browsers can run.
+JSX = JavaScript syntax extension. It is a JavaScript extension that allows us to describe React's object tree using a syntax that resembles that of an HTML template.
+
+======================================================
+JavaScripts Expressions in JSX & ES6 Template Literals
+======================================================
+- Adding curly braces, '{}'
+e.g. const name = "Teresa";  
+     ReactDOM.render(<h1>Hello {name}!</h1>, document.getElementById("root"));
+
+- ES6 Template Literals: inject strings into a piece of JavaScript
+e.g. <h1>Hello {`${fName} ${lName}`}!</h1>
+
+=========================================
+JSX Attributes and Styling React Elements
+=========================================
+JSX attributes is following camel case convention
+- e.g. className, contentEditable
+Adding className is the most common way to add styling to React elements
+
+==============================
+Inline Styling React Elements
+==============================
+The style property requires a value that is a JavaScript object. 
+And for that object to be interpreted correctly, it must be enclosed within curly brackets.
+e.g. ReactDOM.render(<h1 style={{color:"red"}}> Hello </h1>, document.getElementById("root"));
+
+================
+React Components
+================
+Capitalized the first letter of the component name. 
+This differentiation assists React in distinguishing between custom components and HTML elements.
+E.g. function Heading(){
+       return <h1>My favorite foods </h1>
+     }
+
+     <Heading></Heading>
+
+create a new directory named "components" and save the .jsx files in it to store the components.
+
+==========================================
+JavaScript ES6 - Import,Export and Modules
+==========================================
+When we write: import Pi from Math.js => it will import the default export from Math.js
+But if we want to import other than default, then we should write: import pi,{doublePi,triplePi} from Math.js
+
+The advantage of using import/export modules is the ability to split up the JavaScript file into individual and more manageable components.
+
+We can also say: import * as pi from "./math.js"
+And since everything in "./math.js" will be imported, it is not encouraged to do this. 
+
+=============================================
+Local envrionment setup for React development
+=============================================
+1. Check node is up to date
+2. Install vscode
+3. Create React app
+4. Run app
+ 
