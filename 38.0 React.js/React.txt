@@ -105,4 +105,65 @@ Local envrionment setup for React development
 2. Install vscode
 3. Create React app
 4. Run app
- 
+
+==========================
+Mapping data to components
+==========================
+Map individual pieces of data to custom components, which are useful for handling arrays. E.g. Array.map(anotherFunction)
+The map function will iterate through the items in the array, and for each item, it will invoke 'anotherFunction' and pass the corresponding object from the array
+
+*In the 'anotherFunction', each component should possess a property called 'key', representing a unique value for each component within the array
+
+================================
+JavaScript ES6 Map/Filter/Reduce
+================================
+Map -Create a new array by doing something with each item in an array.
+e.g. 
+const newNumbers = numbers.map(function (x) {
+  return 2 * x;
+});
+
+-----------------------------------------------------------------
+Filter - Create a new array by keeping the items that return true
+-----------------------------------------------------------------
+e.g.
+const newNumbers = numbers.filter(function (x) {
+  return x > 10;
+});
+
+-----------------------------------------------------------------------
+Reduce - Accumulate a value by doing something to each item in an array
+-----------------------------------------------------------------------
+var newNumber = numbers.reduce(function (accumulator, currentNumber) {
+  return accumulator + currentNumber;
+});
+
+-----------------------------------------------------
+Find - find the first item that matches from an array
+-----------------------------------------------------
+e.g. const newNumber = numbers.find(function (x) {
+  return x > 10;
+});
+
+---------------------------------------------------------
+FindIndex - find the index of the first item that matches
+---------------------------------------------------------
+e.g. const newNumber = numbers.findIndex(function (x) {
+  return x > 10;
+});
+
+==============
+Arrow Function
+==============
+A shorter way to write JavaScript function
+E.g. const newNumbers = numbers.map(x => x * 2);
+
+E.g. {emojipedia.map((emojiTerm) => (
+          <Entry
+            key={emojiTerm.id}
+            emoji={emojiTerm.emoji}
+            name={emojiTerm.name}
+            description={emojiTerm.meaning}
+          />
+        ))}
+
