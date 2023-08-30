@@ -166,4 +166,118 @@ E.g. {emojipedia.map((emojiTerm) => (
             description={emojiTerm.meaning}
           />
         ))}
+=====================
+Conditional Rendering
+=====================
+Ternary Operator: Condition? Do if true; Do if false
+
+&& in JS : (Expression && Expression) e.g. (x>3 && x<7)
+&& in React: (Condition && Expression) e.g. (x>3) && <h1> Hello </h1> 
+             => If x>3, then renders "Hello". Otherwise, show nothing. 
+
+=====
+State
+=====
+User Interface = function(State) 
+
+Declarative programming: how our user interface will look in different conditions.
+Imperative programming: a step-by-step process for a program's execution.
+
+Hook is a function that allows us to hook into the state of our app and read or modify it.
+
+=====================
+React Hooks- useState
+=====================
+Use hook only in a functional component
+
+const state = useState(Initial State);
+The output of useState is an array. state = [Initial value, function()];
+To render the initial value, we use: state[0]
+
+Destructing: destructure a complex structure
+e.g. const[red, green, blue]=[9,127,227]
+
+================================
+Objects and Arrays destructuring
+================================
+//Destructuring arrays
+const[car,dog] = animals; 
+
+//Destructuring objects
+const {name, sound}= cat; //The name should be the same as the one used in the object.
+const {name: catName, sound: catSound} = cat; //Change the name to my desired one
+const {name="fluffy", sound = "Purr"} = cat; //if name if undefined, then name it as "fluffy"
+const {feedingRequirements:{food,water}} = cat; //to handle nested object
+
+=======================
+Event Handling in React
+=======================
+onClick={}
+onMouseOut={}
+onMouseOver={}
+style={{backgroundColor:function?"True":"False"}}
+
+===========
+React Forms
+===========
+HTML form 擁有並管理自己的 state。
+然而，React 本身也有管理 state 的功能。這時我們就面臨一個選擇：
+1. 將 HTML form element 的 state 也交給 React 一併控管 ==> Controlled component
+2. 讓 HTML form element 管理自己的 state，React 不加以管控 ==> Uncontrolled component
+
+所有使用者的輸入行為都會藉由 event 被 "推送" 到 React state 中；React 在收到 event 後就可做出對應的 state 改動以將資料更新到 form element 上
+也就是說，form element 的內容永遠是由 state 同步的，React state 因此成為單一資料來源 （Single Source Of Truth）
+Advantages: Since state 都是由 React 掌控，可以避免資料修改來源過多，導致維護難度提高
+
+==========================================
+Class components vs. Functional components
+===========================================
+Class is the older version; nowadays, people are starting to use Hooks
+
+=======================
+Changing complex states
+=======================
+Instead of storing a simple value, let useState save object
+e.g. 
+const [fullName, setFullName] = useState({
+    fname: "",
+    lname: ""
+  });
+
+To get the previous value: 
+e.g.
+setFullName((prev) => {
+  console.log(prev)
+}
+
+===========================
+ES6 Spread Operator ( ... )
+===========================
+Spread operator allows us to quickly copy an existing array or object into another array or object. 
+e.g. 
+const citrus=["Lime","Lemon","Orange"];
+const fruits = ["Apple","Banana","Coconur", ...citrus];
+console.log(fruits); //["Apple", "Banana", "Coconur", "Lime", "Lemon", "Orange"]
+
+e.g.
+const fullName = {
+  fName: "James",
+  lName: "Bond"
+};
+const user = {
+  ...fullName,
+  username: "007"
+};
+
+
+
+
+
+
+
+
+
+
+
+
 
